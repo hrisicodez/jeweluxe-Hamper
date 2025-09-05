@@ -39,19 +39,36 @@
       const password = document.getElementById("password").value;
       const address = document.getElementById("address").value;
 
-      // Create user in Supabase Auth
+      // 1️⃣ Create user in Supabase Auth
       const { data, error } = await supabaseClient.auth.signUp({
         email,
-        password,
-        options: {
-          data: { full_name: name, address: address } // store metadata
-        }
+        password
       });
 
       if (error) {
         alert("Sign Up Failed: " + error.message);
+        return;
+      }
+
+      const user = data.user;
+
+      // 2️⃣ Insert user data into 'profiles' table
+      const { error: insertError } = await supabaseClient
+        .from("profiles") // 👈 make sure this table exists
+        .insert([
+          {
+            id: user.id,       // link to auth.users
+            full_name: name,
+            email: email,
+            address: address
+          }
+        ]);
+
+      if (insertError) {
+        console.error("Insert error:", insertError.message);
+        alert("Account created but failed to save extra data.");
       } else {
-        alert("Account created! Please check your email for verification.");
+        alert("Account created successfully! Please verify your email.");
         window.location.href = "login.html"; // redirect after signup
       }
     });
