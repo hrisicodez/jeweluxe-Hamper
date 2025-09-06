@@ -36,16 +36,17 @@
           Cart <span class="ml-2 inline-block bg-pink-600 text-white text-xs px-2 py-0.5 rounded-full">2</span>
         </button>
 
-        <!-- User Section -->
+        <!-- Guest Links -->
         <div id="guestLinks" class="flex gap-2">
           <a href="login.html" class="px-3 py-1 rounded-md bg-pink-600 text-white">Login</a>
           <a href="signup.html" class="px-3 py-1 rounded-md border border-gray-200">Sign Up</a>
         </div>
 
+        <!-- User Profile (shown after login) -->
         <div id="userProfile" class="hidden flex items-center gap-3 bg-gray-50 px-3 py-2 rounded-lg shadow-sm">
           <img id="navPic" src="https://via.placeholder.com/40" class="w-10 h-10 rounded-full border" />
-          <div>
-            <div id="navName" class="font-semibold text-sm">User Name</div>
+          <div class="text-sm">
+            <div id="navName" class="font-semibold">User Name</div>
             <div id="navEmail" class="text-xs text-gray-500">email@example.com</div>
             <div id="navMobile" class="text-xs text-gray-500">+91-0000000000</div>
             <div id="navAddress" class="text-xs text-gray-500">User Address</div>
@@ -146,7 +147,7 @@
     }
 
     const SUPABASE_URL = "https://bcyqwhenzljfukvwfekz.supabase.co";
-    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJjeXF3aGVuemxqZnVrdndmZWt6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTcwODk2MDIsImV4cCI6MjA3MjY2NTYwMn0.yjlJIDpVpVtVEAAYUFRYLEyFfbvOisZ5l7XEZnEfGBg";
+    const SUPABASE_KEY = "YOUR_PUBLIC_ANON_KEY";
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
     async function loadProfile() {
