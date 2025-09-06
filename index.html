@@ -5,10 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jeweluxe Hamper - Home</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Supabase SDK -->
+  <script src="https://unpkg.com/@supabase/supabase-js"></script>
   <script>
     // Toggle dropdown visibility
     function toggleMenu() {
-      document.getElementById("userMenu").classList.toggle("hidden");
+      document.getElementById("profileMenu").classList.toggle("hidden");
     }
 
     // Toggle cart sidebar
@@ -45,15 +47,29 @@
           Cart <span class="ml-2 inline-block bg-pink-600 text-white text-xs px-2 py-0.5 rounded-full">2</span>
         </button>
 
-        <!-- User Menu -->
-        <div class="relative">
-          <button onclick="toggleMenu()" class="px-3 py-1 rounded-md bg-gray-100 hover:bg-gray-200 text-sm">
-            Account ▾
+        <!-- User Profile Dropdown -->
+        <div class="relative" id="profileMenuWrapper">
+          <button onclick="toggleMenu()" id="profileButton" class="flex items-center gap-2 px-3 py-1 rounded-md hover:bg-gray-100">
+            <img id="navPic" src="https://via.placeholder.com/30" class="w-8 h-8 rounded-full hidden" />
+            <span id="navName">Account ▾</span>
           </button>
-          <!-- Drop-up Menu -->
-          <div id="userMenu" class="hidden absolute right-0 mt-2 w-40 bg-white border rounded-lg shadow-md">
-            <a href="login.html" class="block px-4 py-2 text-sm hover:bg-pink-50">Login</a>
-            <a href="signup.html" class="block px-4 py-2 text-sm hover:bg-pink-50">Sign Up</a>
+
+          <div id="profileMenu" class="hidden absolute right-0 mt-2 w-64 bg-white border rounded-lg shadow-lg p-4 text-sm">
+            <div class="flex items-center gap-3 mb-4">
+              <img id="menuPic" src="https://via.placeholder.com/60" class="w-12 h-12 rounded-full" />
+              <div>
+                <div id="menuName" class="font-semibold">Guest</div>
+                <div id="menuEmail" class="text-xs text-gray-500">Not logged in</div>
+              </div>
+            </div>
+            <div class="space-y-1 mb-2">
+              <div><strong>📱 Phone:</strong> <span id="menuMobile">-</span></div>
+              <div><strong>🏠 Address:</strong> <span id="menuAddress">-</span></div>
+            </div>
+            <hr class="my-3">
+            <a href="login.html" id="loginLink" class="block px-2 py-1 hover:bg-pink-50 rounded">Login</a>
+            <a href="signup.html" id="signupLink" class="block px-2 py-1 hover:bg-pink-50 rounded">Sign Up</a>
+            <button id="logoutBtn" onclick="logout()" class="hidden w-full text-left px-2 py-1 hover:bg-pink-50 rounded text-red-600">Logout</button>
           </div>
         </div>
       </div>
@@ -198,6 +214,55 @@
     </div>
   </aside>
 
+  <!-- Supabase Profile Script -->
+  <script>
+    const SUPABASE_URL = "https://bcyqwhenzljfukvwfekz.supabase.co";
+    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJjeXF3aGVuemxqZnVrdndmZWt6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTcwODk2MDIsImV4cCI6MjA3MjY2NTYwMn0.yjlJIDpVpVtVEAAYUFRYLEyFfbvOisZ5l7XEZnEfGBg";
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    async function loadProfile() {
+      const { data: { user } } = await supabaseClient.auth.getUser();
+
+      if (user) {
+        // Fetch profile details
+        let { data: profile, error } = await supabaseClient
+          .from("profiles")
+          .select("full_name, email, mobile, address, profile_pic")
+          .eq("id", user.id)
+          .single();
+
+        if (!error && profile) {
+          // Navbar
+          document.getElementById("navName").innerText = profile.full_name || user.email;
+          if (profile.profile_pic) {
+            document.getElementById("navPic").src = profile.profile_pic;
+            document.getElementById("navPic").classList.remove("hidden");
+          }
+
+          // Dropdown
+          document.getElementById("menuName").innerText = profile.full_name || "User";
+          document.getElementById("menuEmail").innerText = profile.email || user.email;
+          document.getElementById("menuMobile").innerText = profile.mobile || "-";
+          document.getElementById("menuAddress").innerText = profile.address || "-";
+          if (profile.profile_pic) {
+            document.getElementById("menuPic").src = profile.profile_pic;
+          }
+
+          // Show logout, hide login/signup
+          document.getElementById("logoutBtn").classList.remove("hidden");
+          document.getElementById("loginLink").classList.add("hidden");
+          document.getElementById("signupLink").classList.add("hidden");
+        }
+      }
+    }
+
+    async function logout() {
+      await supabaseClient.auth.signOut();
+      window.location.reload();
+    }
+
+    loadProfile();
+  </script>
+
 </body>
 </html>
-
