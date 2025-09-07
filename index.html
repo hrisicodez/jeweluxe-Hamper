@@ -6,7 +6,7 @@
   <title>Jeweluxe Hamper - Home</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-amber-50 text-slate-800">
+<body class="bg-cream-50 text-slate-800">
 
   <!-- Header -->
   <header class="sticky top-0 z-30 bg-white/80 backdrop-blur-md shadow-sm">
@@ -35,9 +35,10 @@
           Cart <span class="ml-2 inline-block bg-pink-600 text-white text-xs px-2 py-0.5 rounded-full">2</span>
         </button>
 
-        <!-- Dynamic User Area -->
-        <div id="userArea" class="flex gap-2 items-center">
-          <!-- Will be populated by JS -->
+        <!-- Guest Links -->
+        <div id="guestLinks" class="flex gap-2">
+          <a href="login.html" class="px-3 py-1 rounded-md bg-pink-600 text-white">Login</a>
+          <a href="signup.html" class="px-3 py-1 rounded-md border border-gray-200">Sign Up</a>
         </div>
       </div>
     </div>
@@ -48,11 +49,11 @@
     <div>
       <h2 class="text-4xl font-serif leading-tight">Handpicked hampers, crafted with love.</h2>
       <p class="mt-4 text-gray-600">Customizable gift hampers with jewelry-inspired accessories — perfect for birthdays, festivals, and little moments that matter.</p>
-      <div class="mt-6 flex gap-3 flex-wrap">
+      <div class="mt-6 flex gap-3">
         <button class="px-5 py-2 rounded-md bg-pink-600 text-white font-medium">Shop Bestsellers</button>
         <button class="px-5 py-2 rounded-md border border-gray-200">Build Your Hamper</button>
       </div>
-      <div class="mt-6 flex gap-4 text-sm text-gray-500 flex-wrap">
+      <div class="mt-6 flex gap-4 text-sm text-gray-500">
         <div class="flex items-center gap-2">
           <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">✨</div>
           <div>
@@ -76,6 +77,7 @@
 
   <!-- Product Grid -->
   <main class="max-w-6xl mx-auto px-4 py-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+    <!-- Example Product -->
     <article class="bg-white rounded-lg shadow-sm overflow-hidden flex flex-col">
       <div class="h-52 bg-gray-100">
         <img src="https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?w=1000&q=80" alt="Pearl Jhumka Set" class="w-full h-full object-cover" />
@@ -127,53 +129,10 @@
 
   <!-- Scripts -->
   <script>
-    // Toggle Cart
     function toggleCart() {
       document.getElementById("cartSidebar").classList.toggle("translate-x-full");
     }
-
-    // Dynamic User Area
-    const userArea = document.getElementById('userArea');
-    const user = JSON.parse(localStorage.getItem('user')); // stored after login
-
-    if(user) {
-      userArea.innerHTML = `
-        <div class="flex items-center gap-2 cursor-pointer relative" id="profileCard">
-          <img src="${user.profilePic}" alt="Profile" class="w-8 h-8 rounded-full object-cover border-2 border-pink-600">
-        </div>
-        <div id="profileDropdown" class="hidden absolute top-12 right-0 bg-white shadow-lg rounded-md p-3 w-60 text-sm border">
-          <div class="flex items-center gap-2 mb-2">
-            <img src="${user.profilePic}" alt="Profile" class="w-10 h-10 rounded-full object-cover">
-            <div>
-              <div class="font-medium">${user.name}</div>
-              <div class="text-xs text-gray-500">${user.email}</div>
-              <div class="text-xs text-gray-500">${user.mobile}</div>
-            </div>
-          </div>
-          <div class="text-xs text-gray-500 mb-2">${user.address}</div>
-          <button id="logoutBtn" class="w-full px-3 py-1 rounded-md bg-pink-600 text-white text-sm">Logout</button>
-        </div>
-      `;
-
-      const profileCard = document.getElementById('profileCard');
-      const profileDropdown = document.getElementById('profileDropdown');
-
-      profileCard.addEventListener('click', () => {
-        profileDropdown.classList.toggle('hidden');
-      });
-
-      document.getElementById('logoutBtn').addEventListener('click', () => {
-        localStorage.removeItem('user');
-        location.reload();
-      });
-
-    } else {
-      userArea.innerHTML = `
-        <a href="login.html" class="px-3 py-1 rounded-md bg-pink-600 text-white">Login</a>
-        <a href="signup.html" class="px-3 py-1 rounded-md border border-gray-200">Sign Up</a>
-      `;
-    }
   </script>
-
 </body>
 </html>
+
