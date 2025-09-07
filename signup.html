@@ -13,7 +13,7 @@
     <h2 class="text-2xl font-bold text-center mb-6">Create Account</h2>
     <form id="signupForm" class="space-y-4">
       <input id="name" type="text" placeholder="Full Name" class="w-full border rounded px-3 py-2" required />
-      <input id="mobile" type="text" placeholder="Mobile Number" class="w-full border rounded px-3 py-2" requried />
+      <input id="mobile" type="text" placeholder="Mobile Number" class="w-full border rounded px-3 py-2" required />
       <input id="email" type="email" placeholder="Email" class="w-full border rounded px-3 py-2" required />
       <input id="password" type="password" placeholder="Password" class="w-full border rounded px-3 py-2" required />
       <input id="address" type="text" placeholder="Address" class="w-full border rounded px-3 py-2" />
@@ -25,17 +25,15 @@
   </div>
 
   <script>
-    // Replace these with your Supabase credentials
     const SUPABASE_URL = "https://bcyqwhenzljfukvwfekz.supabase.co";
-    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJjeXF3aGVuemxqZnVrdndmZWt6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTcwODk2MDIsImV4cCI6MjA3MjY2NTYwMn0.yjlJIDpVpVtVEAAYUFRYLEyFfbvOisZ5l7XEZnEfGBg";
-
+    const SUPABASE_KEY = "YOUR_ANON_KEY"; // keep safe
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    // Handle Sign Up
     document.getElementById("signupForm").addEventListener("submit", async (event) => {
       event.preventDefault();
 
       const name = document.getElementById("name").value;
+      const mobile = document.getElementById("mobile").value;
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
       const address = document.getElementById("address").value;
@@ -51,15 +49,16 @@
         return;
       }
 
-      const user = data.user;
+      const userId = data.user?.id; // get new user id
 
       // 2️⃣ Insert user data into 'profiles' table
       const { error: insertError } = await supabaseClient
-        .from("profiles") // 👈 make sure this table exists
+        .from("profiles")
         .insert([
           {
-            id: user.id,       // link to auth.users
+            id: userId,       // link with auth.users
             full_name: name,
+            mobile: mobile,
             email: email,
             address: address
           }
@@ -67,13 +66,12 @@
 
       if (insertError) {
         console.error("Insert error:", insertError.message);
-        alert("Account created but failed to save extra data.");
+        alert("Account created but failed to save extra data: " + insertError.message);
       } else {
         alert("Account created successfully! Please verify your email.");
-        window.location.href = "login.html"; // redirect after signup
+        window.location.href = "login.html"; 
       }
     });
   </script>
 </body>
 </html>
-
