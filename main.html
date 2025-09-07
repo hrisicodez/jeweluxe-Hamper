@@ -53,65 +53,14 @@
         <button class="px-5 py-2 rounded-md bg-pink-600 text-white font-medium">Shop Bestsellers</button>
         <button class="px-5 py-2 rounded-md border border-gray-200">Build Your Hamper</button>
       </div>
-      <div class="mt-6 flex gap-4 text-sm text-gray-500">
-        <div class="flex items-center gap-2">
-          <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">✨</div>
-          <div>
-            <div class="font-medium">Curated Pieces</div>
-            <div class="text-xs">Only the finest accessories</div>
-          </div>
-        </div>
-        <div class="flex items-center gap-2">
-          <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">🎁</div>
-          <div>
-            <div class="font-medium">Gift-ready</div>
-            <div class="text-xs">Beautiful packaging included</div>
-          </div>
-        </div>
-      </div>
     </div>
     <div class="rounded-lg overflow-hidden shadow-lg bg-white">
       <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=1200&q=80" alt="hamper" class="w-full h-72 object-cover" />
     </div>
   </section>
 
-  <!-- Product Grid -->
-  <main class="max-w-6xl mx-auto px-4 py-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-    <article class="bg-white rounded-lg shadow-sm overflow-hidden flex flex-col">
-      <div class="h-52 bg-gray-100">
-        <img src="https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?w=1000&q=80" alt="Pearl Jhumka Set" class="w-full h-full object-cover" />
-      </div>
-      <div class="p-4 flex-1 flex flex-col">
-        <h3 class="font-medium text-lg">Pearl Jhumka Set</h3>
-        <p class="text-sm text-gray-500 mt-1">Festive</p>
-        <div class="mt-3 flex items-center justify-between">
-          <div class="text-lg font-semibold">₹699</div>
-          <button class="px-3 py-1 rounded-md bg-pink-600 text-white text-sm">Add</button>
-        </div>
-      </div>
-    </article>
-  </main>
-
   <!-- Footer -->
   <footer class="mt-10 bg-white border-t">
-    <div class="max-w-6xl mx-auto px-4 py-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div>
-        <h5 class="font-semibold">Jeweluxe Hamper</h5>
-        <p class="text-sm text-gray-500 mt-2">Curated gift hampers & accessories. Small-batch, lovingly packaged.</p>
-      </div>
-      <div>
-        <h5 class="font-semibold">Help</h5>
-        <ul class="mt-2 text-sm text-gray-600 space-y-1">
-          <li>Shipping</li>
-          <li>Returns</li>
-          <li>FAQs</li>
-        </ul>
-      </div>
-      <div>
-        <h5 class="font-semibold">Follow</h5>
-        <div class="mt-2 flex gap-3 text-sm text-gray-600">Instagram • Pinterest • WhatsApp</div>
-      </div>
-    </div>
     <div class="text-center text-xs text-gray-400 py-4">© 2025 Jeweluxe Hamper • All rights reserved</div>
   </footer>
 
@@ -134,20 +83,27 @@
 
     // Initialize Supabase
     const supabaseUrl = 'https://bcyqwhenzljfukvwfekz.supabase.co';
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJjeXF3aGVuemxqZnVrdndmZWt6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTcwODk2MDIsImV4cCI6MjA3MjY2NTYwMn0.yjlJIDpVpVtVEAAYUFRYLEyFfbvOisZ5l7XEZnEfGBg';
-    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJjeXF3aGVuemxqZnVrdndmZWt6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTcwODk2MDIsImV4cCI6MjA3MjY2NTYwMn0.yjlJIDpVpVtVEAAYUFRYLEyFfbvOisZ5l7XEZnEfGBg'; // replace with your anon key
+    const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
-    // Load and manage editable account
     async function loadAccount() {
-      const { data: { user } } = await supabase.auth.getUser();
       const accountDiv = document.getElementById('accountSection');
+      const { data: { session } } = await supabase.auth.getSession();
 
-      if(user){
-        const { data: profile } = await supabase.from('profiles').select('*').eq('id', user.id).single();
+      if(session?.user){
+        const user = session.user;
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('id', user.id)
+          .single();
 
         accountDiv.innerHTML = `
           <div class="relative">
-            <img src="${profile?.avatar || 'https://via.placeholder.com/40'}" alt="Profile" class="w-8 h-8 rounded-full border-2 border-pink-600 cursor-pointer" id="profilePic">
+            <img src="${profile?.avatar || 'https://via.placeholder.com/40'}"
+                 alt="Profile"
+                 class="w-8 h-8 rounded-full border-2 border-pink-600 cursor-pointer"
+                 id="profilePic">
             <div id="profileDropdown" class="hidden absolute right-0 mt-2 w-64 bg-white shadow-lg rounded-md p-4 border z-50 text-sm">
               <div class="flex items-center gap-2 mb-2">
                 <img src="${profile?.avatar || 'https://via.placeholder.com/40'}" class="w-10 h-10 rounded-full">
@@ -168,11 +124,12 @@
           </div>
         `;
 
-        const profilePic = document.getElementById('profilePic');
-        const profileDropdown = document.getElementById('profileDropdown');
-        profilePic.addEventListener('click', () => profileDropdown.classList.toggle('hidden'));
+        // Dropdown toggle
+        document.getElementById('profilePic').addEventListener('click', () => {
+          document.getElementById('profileDropdown').classList.toggle('hidden');
+        });
 
-        // Save updated profile
+        // Save profile updates
         document.getElementById('saveProfileBtn').addEventListener('click', async () => {
           const updatedName = document.getElementById('editName').value;
           const updatedPhone = document.getElementById('editPhone').value;
@@ -193,10 +150,16 @@
           await supabase.auth.signOut();
           location.reload();
         });
+
+      } else {
+        // If no user logged in, show login button
+        accountDiv.innerHTML = `
+          <a href="login.html" class="px-3 py-1 rounded-md bg-pink-600 text-white text-sm">Login</a>
+        `;
       }
     }
 
-    loadAccount();
+    document.addEventListener("DOMContentLoaded", loadAccount);
   </script>
 </body>
 </html>
