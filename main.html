@@ -33,13 +33,12 @@
 
         <!-- Cart -->
         <button onclick="toggleCart()" class="relative px-3 py-1 rounded-md bg-pink-50 hover:bg-pink-100">
-          Cart <span class="ml-2 inline-block bg-pink-600 text-white text-xs px-2 py-0.5 rounded-full">2</span>
+          Cart
+          <span class="ml-2 inline-block bg-pink-600 text-white text-xs px-2 py-0.5 rounded-full">2</span>
         </button>
 
         <!-- Account Section -->
-        <div id="accountSection" class="flex items-center gap-2 relative">
-          <!-- Account info loaded dynamically -->
-        </div>
+        <div id="accountSection" class="flex items-center gap-2 relative"></div>
       </div>
     </div>
   </header>
@@ -61,6 +60,24 @@
 
   <!-- Footer -->
   <footer class="mt-10 bg-white border-t">
+    <div class="max-w-6xl mx-auto px-4 py-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div>
+        <h5 class="font-semibold">Jeweluxe Hamper</h5>
+        <p class="text-sm text-gray-500 mt-2">Curated gift hampers & accessories. Small-batch, lovingly packaged.</p>
+      </div>
+      <div>
+        <h5 class="font-semibold">Help</h5>
+        <ul class="mt-2 text-sm text-gray-600 space-y-1">
+          <li>Shipping</li>
+          <li>Returns</li>
+          <li>FAQs</li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="font-semibold">Follow</h5>
+        <div class="mt-2 flex gap-3 text-sm text-gray-600">Instagram • Pinterest • WhatsApp</div>
+      </div>
+    </div>
     <div class="text-center text-xs text-gray-400 py-4">© 2025 Jeweluxe Hamper • All rights reserved</div>
   </footer>
 
@@ -83,83 +100,46 @@
 
     // Initialize Supabase
     const supabaseUrl = 'https://bcyqwhenzljfukvwfekz.supabase.co';
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJjeXF3aGVuemxqZnVrdndmZWt6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTcwODk2MDIsImV4cCI6MjA3MjY2NTYwMn0.yjlJIDpVpVtVEAAYUFRYLEyFfbvOisZ5l7XEZnEfGBg'; // replace with your anon key
-    const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJjeXF3aGVuemxqZnVrdndmZWt6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTcwODk2MDIsImV4cCI6MjA3MjY2NTYwMn0.yjlJIDpVpVtVEAAYUFRYLEyFfbvOisZ5l7XEZnEfGBg';
+    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
+    // Load account section (only email from Supabase, editable name locally)
     async function loadAccount() {
+      const { data: { user } } = await supabase.auth.getUser();
       const accountDiv = document.getElementById('accountSection');
-      const { data: { session } } = await supabase.auth.getSession();
 
-      if(session?.user){
-        const user = session.user;
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('id', user.id)
-          .single();
-
+      if (user) {
         accountDiv.innerHTML = `
           <div class="relative">
-            <img src="${profile?.avatar || 'https://via.placeholder.com/40'}"
-                 alt="Profile"
-                 class="w-8 h-8 rounded-full border-2 border-pink-600 cursor-pointer"
-                 id="profilePic">
+            <img src="https://via.placeholder.com/40" alt="Profile" class="w-8 h-8 rounded-full border-2 border-pink-600 cursor-pointer" id="profilePic">
             <div id="profileDropdown" class="hidden absolute right-0 mt-2 w-64 bg-white shadow-lg rounded-md p-4 border z-50 text-sm">
-              <div class="flex items-center gap-2 mb-2">
-                <img src="${profile?.avatar || 'https://via.placeholder.com/40'}" class="w-10 h-10 rounded-full">
-                <div>
-                  <div class="font-medium">${profile?.full_name || ''}</div>
-                  <div class="text-gray-500 text-xs">${user.email}</div>
-                </div>
-              </div>
-              <label class="block text-gray-600 text-xs mt-2">Full Name</label>
-              <input id="editName" value="${profile?.full_name || ''}" class="w-full px-2 py-1 border rounded mb-1 text-sm" />
-              <label class="block text-gray-600 text-xs">Phone</label>
-              <input id="editPhone" value="${profile?.phone || ''}" class="w-full px-2 py-1 border rounded mb-1 text-sm" />
-              <label class="block text-gray-600 text-xs">Address</label>
-              <input id="editAddress" value="${profile?.address || ''}" class="w-full px-2 py-1 border rounded mb-2 text-sm" />
-              <button id="saveProfileBtn" class="w-full px-3 py-1 rounded-md bg-green-600 text-white text-sm mb-2">Save</button>
+              <label class="block text-gray-600 text-xs">Name</label>
+              <input id="editName" value="" placeholder="Enter your name" class="w-full px-2 py-1 border rounded mb-2 text-sm" />
+              
+              <label class="block text-gray-600 text-xs">Email</label>
+              <div class="w-full px-2 py-1 border rounded mb-2 bg-gray-100 text-sm">${user.email}</div>
+
               <button id="logoutBtn" class="w-full px-3 py-1 rounded-md bg-pink-600 text-white text-sm">Logout</button>
             </div>
           </div>
         `;
 
-        // Dropdown toggle
-        document.getElementById('profilePic').addEventListener('click', () => {
-          document.getElementById('profileDropdown').classList.toggle('hidden');
-        });
-
-        // Save profile updates
-        document.getElementById('saveProfileBtn').addEventListener('click', async () => {
-          const updatedName = document.getElementById('editName').value;
-          const updatedPhone = document.getElementById('editPhone').value;
-          const updatedAddress = document.getElementById('editAddress').value;
-
-          await supabase.from('profiles').update({
-            full_name: updatedName,
-            phone: updatedPhone,
-            address: updatedAddress
-          }).eq('id', user.id);
-
-          alert('Profile updated successfully!');
-          location.reload();
-        });
+        const profilePic = document.getElementById('profilePic');
+        const profileDropdown = document.getElementById('profileDropdown');
+        profilePic.addEventListener('click', () => profileDropdown.classList.toggle('hidden'));
 
         // Logout
         document.getElementById('logoutBtn').addEventListener('click', async () => {
           await supabase.auth.signOut();
           location.reload();
         });
-
       } else {
-        // If no user logged in, show login button
-        accountDiv.innerHTML = `
-          <a href="login.html" class="px-3 py-1 rounded-md bg-pink-600 text-white text-sm">Login</a>
-        `;
+        accountDiv.innerHTML = `<a href="login.html" class="px-3 py-1 bg-pink-600 text-white rounded text-sm">Login</a>`;
       }
     }
 
-    document.addEventListener("DOMContentLoaded", loadAccount);
+    loadAccount();
   </script>
+
 </body>
 </html>
