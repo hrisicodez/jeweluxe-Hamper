@@ -65,9 +65,14 @@
       document.getElementById("cartSidebar").classList.toggle("translate-x-full");
     }
 
-    // Dummy login simulation (replace with real login logic if needed)
+    // Dummy login simulation (replace with real login logic later)
     const isLoggedIn = true;  
-    const userEmail = "user@example.com";  
+    const userData = {
+      name: "User",
+      email: "user@example.com",
+      phone: "+91 9876543210",
+      avatar: "https://via.placeholder.com/40"
+    };
 
     function loadAccount() {
       const accountDiv = document.getElementById('accountSection');
@@ -75,37 +80,41 @@
       if (isLoggedIn) {
         accountDiv.innerHTML = `
           <div class="relative">
-            <img src="https://via.placeholder.com/40" 
+            <img src="${userData.avatar}" 
                  alt="Profile" 
                  class="w-9 h-9 rounded-full border-2 border-pink-600 cursor-pointer" 
                  id="profilePic">
 
+            <!-- Dropdown -->
             <div id="profileDropdown" 
-                 class="hidden absolute right-0 mt-2 w-72 bg-white shadow-lg rounded-md p-4 border z-50 text-sm">
+                 class="hidden absolute right-0 mt-2 w-72 bg-white shadow-lg rounded-xl p-4 border z-50 text-sm">
               
-              <div class="flex items-center gap-2 mb-4">
-                <img src="https://via.placeholder.com/40" class="w-10 h-10 rounded-full">
+              <!-- User info -->
+              <div class="flex items-center gap-3 mb-4">
+                <img src="${userData.avatar}" class="w-10 h-10 rounded-full border">
                 <div>
-                  <div class="font-medium" id="displayName">User</div>
-                  <div class="text-gray-500 text-xs">${userEmail}</div>
+                  <div class="font-medium" id="displayName">${userData.name}</div>
+                  <div class="text-gray-500 text-xs">${userData.email}</div>
                 </div>
               </div>
 
+              <!-- Editable fields -->
               <label class="block text-gray-600 text-xs">Full Name</label>
-              <input id="editName" value="User" class="w-full px-2 py-1 border rounded mb-2 text-sm" />
+              <input id="editName" value="${userData.name}" class="w-full px-2 py-1 border rounded mb-2 text-sm" />
 
               <label class="block text-gray-600 text-xs">Phone</label>
-              <input id="editPhone" value="" class="w-full px-2 py-1 border rounded mb-2 text-sm" />
+              <input id="editPhone" value="${userData.phone}" class="w-full px-2 py-1 border rounded mb-2 text-sm" />
 
               <label class="block text-gray-600 text-xs">Email</label>
-              <input value="${userEmail}" disabled class="w-full px-2 py-1 border rounded mb-3 bg-gray-100 text-sm" />
+              <input value="${userData.email}" disabled class="w-full px-2 py-1 border rounded mb-3 bg-gray-100 text-sm" />
 
-              <button id="saveProfileBtn" class="w-full px-3 py-1 rounded-md bg-green-600 text-white text-sm mb-2">
-                Save (Local)
+              <!-- Buttons -->
+              <button id="saveProfileBtn" class="w-full px-3 py-2 rounded-md bg-green-600 hover:bg-green-700 text-white text-sm mb-2 transition">
+                ✅ Save (Local)
               </button>
 
-              <button id="logoutBtn" class="w-full px-3 py-1 rounded-md bg-pink-600 text-white text-sm">
-                Logout
+              <button id="logoutBtn" class="w-full px-3 py-2 rounded-md bg-pink-600 hover:bg-pink-700 text-white text-sm transition">
+                🚪 Logout
               </button>
             </div>
           </div>
@@ -113,24 +122,35 @@
 
         const profilePic = document.getElementById('profilePic');
         const profileDropdown = document.getElementById('profileDropdown');
-        profilePic.addEventListener('click', () => profileDropdown.classList.toggle('hidden'));
+
+        // Toggle dropdown
+        profilePic.addEventListener('click', () => {
+          profileDropdown.classList.toggle('hidden');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+          if (!profilePic.contains(e.target) && !profileDropdown.contains(e.target)) {
+            profileDropdown.classList.add('hidden');
+          }
+        });
 
         // Save locally (no DB)
         document.getElementById('saveProfileBtn').addEventListener('click', () => {
           const updatedName = document.getElementById('editName').value;
           document.getElementById('displayName').textContent = updatedName;
-          alert('Profile updated locally (not saved to DB).');
+          alert('✅ Profile updated locally (not saved to DB).');
         });
 
         // Logout (local simulation)
         document.getElementById('logoutBtn').addEventListener('click', () => {
-          alert('Logged out.');
+          alert('🚪 Logged out.');
           location.reload();
         });
 
       } else {
         accountDiv.innerHTML = `
-          <a href="login.html" class="px-3 py-1 bg-pink-600 text-white rounded text-sm">Login</a>
+          <a href="login.html" class="px-3 py-1 bg-pink-600 text-white rounded text-sm hover:bg-pink-700">Login</a>
         `;
       }
     }
