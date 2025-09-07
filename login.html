@@ -22,31 +22,35 @@
   </div>
 
   <script>
-    // Replace these with your Supabase credentials
+    // Supabase credentials
     const SUPABASE_URL = "https://bcyqwhenzljfukvwfekz.supabase.co";
     const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJjeXF3aGVuemxqZnVrdndmZWt6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTcwODk2MDIsImV4cCI6MjA3MjY2NTYwMn0.yjlJIDpVpVtVEAAYUFRYLEyFfbvOisZ5l7XEZnEfGBg";
-
+    
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
     // Handle Login
     document.getElementById("loginForm").addEventListener("submit", async (event) => {
       event.preventDefault();
 
-      const email = document.getElementById("email").value;
+      const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value;
 
       const { data, error } = await supabaseClient.auth.signInWithPassword({
         email,
-        password
+        password,
       });
 
       if (error) {
-        alert("Login Failed: " + error.message);
+        alert("❌ Login Failed: " + error.message);
+        console.error("Login error:", error);
       } else {
-        // Save session so user stays logged in
-        localStorage.setItem("user", JSON.stringify(data.user));
-        alert("Login Successful! Welcome " + email);
-        window.location.href = "index.html"; // redirect to homepage
+        // Save full session so user stays logged in
+        localStorage.setItem("session", JSON.stringify(data.session));
+
+        alert("✅ Login Successful! Welcome " + email);
+
+        // Redirect to homepage
+        window.location.href = "index.html";
       }
     });
   </script>
