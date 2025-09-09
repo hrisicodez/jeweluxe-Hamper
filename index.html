@@ -131,6 +131,10 @@
     <div id="cartItems" class="p-5 space-y-4 text-sm text-gray-700">
       <p>Your cart is empty</p>
     </div>
+    <!-- Total Price -->
+    <div id="cartTotal" class="p-5 border-t border-white/40 font-semibold text-pink-700">
+      Total: ₹0
+    </div>
   </aside>
 
   <!-- Scripts -->
@@ -138,6 +142,7 @@
     const productGrid = document.getElementById("productGrid");
     const cartItems = document.getElementById("cartItems");
     const cartCount = document.getElementById("cartCount");
+    const cartTotal = document.getElementById("cartTotal");
     let cart = [];
 
     // Render products
@@ -179,6 +184,7 @@
       cartCount.textContent = cart.length;
       if (cart.length === 0) {
         cartItems.innerHTML = `<p>Your cart is empty</p>`;
+        cartTotal.textContent = "Total: ₹0";
         return;
       }
       cartItems.innerHTML = cart.map((item, i) => `
@@ -190,6 +196,10 @@
           <button onclick="removeFromCart(${i})" class="text-red-500 hover:underline text-xs">Remove</button>
         </div>
       `).join("");
+
+      // Calculate total sum
+      const total = cart.reduce((sum, item) => sum + item.price, 0);
+      cartTotal.textContent = "Total: ₹" + total;
     }
   </script>
 
