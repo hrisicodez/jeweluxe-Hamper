@@ -266,10 +266,7 @@
       const isLoggedIn = localStorage.getItem("loggedIn") === "true";
       if (!isLoggedIn) {
         localStorage.setItem("redirectAfterLogin", "checkout.html");
-        window.location.href = "login.html";
-      } else {
         window.location.href = "checkout.html";
-      }
     }
 
     function toggleAccount() {
@@ -340,3 +337,4 @@
   </script>
 </body>
 </html>
+
