@@ -75,6 +75,51 @@
       <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=1200&q=80" alt="hamper" class="rounded-3xl shadow-xl hover:scale-105 transition">
     </div>
   </section>
+
+
+  <!-- Product Grid -->
+  <main class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+    <!-- Example Product -->
+    <article class="bg-white/40 backdrop-blur-lg rounded-2xl shadow-lg overflow-hidden transition transform hover:scale-105">
+      <div class="h-56 bg-gray-100 overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?w=1000&q=80" alt="Pearl Jhumka Set" class="w-full h-full object-cover hover:scale-110 transition">
+      </div>
+      <div class="p-5">
+        <h3 class="font-medium text-lg text-slate-900">Pearl Jhumka Set</h3>
+        <p class="text-sm text-gray-700 mt-1">Festive Special</p>
+        <div class="mt-3 flex items-center justify-between">
+          <div class="text-lg font-semibold text-pink-700">₹699</div>
+          <button class="px-4 py-1.5 rounded-lg bg-gradient-to-r from-pink-600 to-pink-700 text-white text-sm shadow hover:opacity-90">Add</button>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="mt-20 bg-white/20 backdrop-blur-lg border-t border-white/40">
+    <div class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-10">
+      <div>
+        <h5 class="font-semibold">Jeweluxe Hamper</h5>
+        <p class="text-sm text-gray-700 mt-2">Luxury, handmade hampers & accessories — designed to create unforgettable gifting moments.</p>
+      </div>
+      <div>
+        <h5 class="font-semibold">Support</h5>
+        <ul class="mt-2 text-sm text-gray-700 space-y-1">
+          <li>Shipping</li>
+          <li>Returns</li>
+          <li>FAQs</li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="font-semibold">Connect</h5>
+        <div class="mt-2 flex gap-4 text-gray-700 text-sm">
+          <a href="#">Instagram</a> • <a href="#">Pinterest</a> • <a href="#">WhatsApp</a>
+        </div>
+      </div>
+    </div>
+    <div class="text-center text-xs text-gray-600 py-5">© 2025 Jeweluxe Hamper • Crafted with Love</div>
+  </footer>
+
   <!-- Account Sidebar -->
   <aside id="accountSidebar" class="fixed top-0 right-0 w-80 h-full bg-white/40 backdrop-blur-xl shadow-2xl border-l border-white/40 transform translate-x-full transition-transform duration-300 z-50">
     <div class="flex justify-between items-center p-5 border-b border-white/40">
@@ -122,17 +167,14 @@
 
   <!-- Scripts -->
   <script>
-    // Toggle Cart Sidebar
     function toggleCart() {
       document.getElementById("cartSidebar").classList.toggle("translate-x-full");
     }
 
-    // Toggle Account Sidebar
     function toggleAccount() {
       document.getElementById("accountSidebar").classList.toggle("translate-x-full");
     }
 
-    // Save account details locally
     function saveAccount() {
       const name = document.getElementById("userName").value;
       const phone = document.getElementById("userPhone").value;
@@ -142,13 +184,11 @@
       localStorage.setItem("userPhone", phone);
       localStorage.setItem("userEmail", email);
 
-      // Update header
       document.getElementById("headerUserName").textContent = name || "Account";
 
       alert("Account details saved locally!");
     }
 
-    // Profile Picture Save
     document.getElementById("profilePicInput").addEventListener("change", function(event) {
       const reader = new FileReader();
       reader.onload = function(e) {
@@ -160,7 +200,6 @@
       reader.readAsDataURL(event.target.files[0]);
     });
 
-    // Logout
     function logoutAccount() {
       localStorage.removeItem("userName");
       localStorage.removeItem("userPhone");
@@ -176,10 +215,11 @@
       document.getElementById("userEmail").value = "";
 
       alert("Logged out successfully!");
-      toggleAccount();
+
+      // Redirect to index.html
+      window.location.href = "index.html";
     }
 
-    // Load saved account details on page load
     window.onload = function() {
       if(localStorage.getItem("userName")) {
         document.getElementById("userName").value = localStorage.getItem("userName");
