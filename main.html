@@ -37,8 +37,9 @@
         </button>
 
         <!-- Account -->
-        <button onclick="toggleAccount()" class="px-4 py-1.5 rounded-lg bg-gradient-to-r from-pink-600 to-pink-700 text-white text-sm font-medium shadow hover:opacity-90">
-          Account
+        <button onclick="toggleAccount()" class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/30 backdrop-blur-md border border-white/40 shadow hover:bg-white/50 transition">
+          <img id="headerProfilePic" src="https://via.placeholder.com/32" class="w-8 h-8 rounded-full border border-pink-500" alt="Profile">
+          <span id="headerUserName" class="text-sm font-medium text-pink-700">Account</span>
         </button>
       </div>
     </div>
@@ -53,12 +54,27 @@
         <button class="px-5 py-2 rounded-md bg-pink-600 text-white font-medium">Shop Bestsellers</button>
         <button class="px-5 py-2 rounded-md border border-gray-200">Build Your Hamper</button>
       </div>
+      <div class="mt-6 flex gap-4 text-sm text-gray-500">
+        <div class="flex items-center gap-2">
+          <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">✨</div>
+          <div>
+            <div class="font-medium">Curated Pieces</div>
+            <div class="text-xs">Only the finest accessories</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">🎁</div>
+          <div>
+            <div class="font-medium">Gift-ready</div>
+            <div class="text-xs">Beautiful packaging included</div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="relative">
       <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=1200&q=80" alt="hamper" class="rounded-3xl shadow-xl hover:scale-105 transition">
     </div>
   </section>
-
   <!-- Account Sidebar -->
   <aside id="accountSidebar" class="fixed top-0 right-0 w-80 h-full bg-white/40 backdrop-blur-xl shadow-2xl border-l border-white/40 transform translate-x-full transition-transform duration-300 z-50">
     <div class="flex justify-between items-center p-5 border-b border-white/40">
@@ -66,6 +82,12 @@
       <button onclick="toggleAccount()" class="text-gray-700 hover:text-pink-700">✕</button>
     </div>
     <div class="p-5 space-y-4">
+      <!-- Profile Picture Upload -->
+      <div class="flex items-center gap-3">
+        <img id="accountProfilePic" src="https://via.placeholder.com/80" class="w-16 h-16 rounded-full border-2 border-pink-500 object-cover" alt="Profile">
+        <input type="file" id="profilePicInput" accept="image/*" class="text-xs text-gray-600">
+      </div>
+
       <label class="block text-sm font-medium text-gray-700">Full Name</label>
       <input id="userName" type="text" placeholder="Enter your name" class="w-full px-3 py-2 border rounded-md text-sm" />
 
@@ -79,7 +101,11 @@
         Save Details
       </button>
 
-      <div class="text-xs text-gray-600 pt-2">Details are saved locally on your browser.</div>
+      <button onclick="logoutAccount()" class="w-full px-4 py-2 rounded-lg bg-gray-200 text-gray-700 text-sm font-medium shadow hover:bg-gray-300">
+        Logout
+      </button>
+
+      <div class="text-xs text-gray-600 pt-2">Details & profile picture are saved locally in your browser.</div>
     </div>
   </aside>
 
@@ -116,19 +142,58 @@
       localStorage.setItem("userPhone", phone);
       localStorage.setItem("userEmail", email);
 
+      // Update header
+      document.getElementById("headerUserName").textContent = name || "Account";
+
       alert("Account details saved locally!");
+    }
+
+    // Profile Picture Save
+    document.getElementById("profilePicInput").addEventListener("change", function(event) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const imgData = e.target.result;
+        document.getElementById("accountProfilePic").src = imgData;
+        document.getElementById("headerProfilePic").src = imgData;
+        localStorage.setItem("userProfilePic", imgData);
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    });
+
+    // Logout
+    function logoutAccount() {
+      localStorage.removeItem("userName");
+      localStorage.removeItem("userPhone");
+      localStorage.removeItem("userEmail");
+      localStorage.removeItem("userProfilePic");
+
+      document.getElementById("headerUserName").textContent = "Account";
+      document.getElementById("headerProfilePic").src = "https://via.placeholder.com/32";
+      document.getElementById("accountProfilePic").src = "https://via.placeholder.com/80";
+
+      document.getElementById("userName").value = "";
+      document.getElementById("userPhone").value = "";
+      document.getElementById("userEmail").value = "";
+
+      alert("Logged out successfully!");
+      toggleAccount();
     }
 
     // Load saved account details on page load
     window.onload = function() {
       if(localStorage.getItem("userName")) {
         document.getElementById("userName").value = localStorage.getItem("userName");
+        document.getElementById("headerUserName").textContent = localStorage.getItem("userName");
       }
       if(localStorage.getItem("userPhone")) {
         document.getElementById("userPhone").value = localStorage.getItem("userPhone");
       }
       if(localStorage.getItem("userEmail")) {
         document.getElementById("userEmail").value = localStorage.getItem("userEmail");
+      }
+      if(localStorage.getItem("userProfilePic")) {
+        document.getElementById("accountProfilePic").src = localStorage.getItem("userProfilePic");
+        document.getElementById("headerProfilePic").src = localStorage.getItem("userProfilePic");
       }
     }
   </script>
