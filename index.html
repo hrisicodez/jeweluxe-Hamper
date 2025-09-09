@@ -6,55 +6,55 @@
   <title>Jeweluxe Hamper - Home</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gradient-to-br from-rose-50 via-pink-50 to-amber-50 text-slate-800 font-sans">
+<body class="min-h-screen bg-gradient-to-br from-pink-100 via-pink-200 to-pink-300 text-slate-800 font-sans">
 
   <!-- Header -->
-  <header class="sticky top-0 z-40 bg-white/70 backdrop-blur-lg shadow-md border-b">
+  <header class="sticky top-0 z-40 bg-white/20 backdrop-blur-xl shadow-lg border-b border-white/40">
     <div class="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
       <!-- Logo -->
       <a href="index.html" class="flex items-center gap-3 group">
-        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-pink-300 to-amber-200 flex items-center justify-center shadow-md">
+        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-pink-400 to-pink-600 flex items-center justify-center shadow-md">
           <span class="font-serif text-xl tracking-wide text-white">JH</span>
         </div>
         <div>
-          <h1 class="text-lg font-semibold group-hover:text-pink-600 transition">Jeweluxe Hamper</h1>
-          <p class="text-xs text-gray-500">The Hamper Story</p>
+          <h1 class="text-lg font-semibold group-hover:text-pink-700 transition">Jeweluxe Hamper</h1>
+          <p class="text-xs text-gray-700">The Hamper Story</p>
         </div>
       </a>
 
       <!-- Search + Cart + User -->
       <div class="flex items-center gap-5">
         <!-- Search -->
-        <div class="hidden md:flex items-center bg-white/80 rounded-full px-3 py-1 gap-2 shadow-inner border">
-          <input placeholder="Search gifts..." class="bg-transparent outline-none text-sm w-56 text-gray-700" />
-          <button class="text-sm font-medium text-pink-600 hover:underline">Search</button>
+        <div class="hidden md:flex items-center bg-white/30 backdrop-blur-md rounded-full px-3 py-1 gap-2 shadow-inner border border-white/40">
+          <input placeholder="Search gifts..." class="bg-transparent outline-none text-sm w-56 text-gray-700 placeholder-gray-600" />
+          <button class="text-sm font-medium text-pink-700 hover:underline">Search</button>
         </div>
 
         <!-- Cart -->
-        <button onclick="toggleCart()" class="relative px-3 py-1 rounded-md bg-gradient-to-r from-pink-100 to-amber-100 hover:from-pink-200 hover:to-amber-200 transition">
+        <button onclick="toggleCart()" class="relative px-3 py-1 rounded-md bg-white/30 backdrop-blur-md border border-white/40 hover:bg-white/50 transition shadow">
           🛒 
           <span class="ml-1 inline-block bg-pink-600 text-white text-xs px-2 py-0.5 rounded-full shadow">2</span>
         </button>
 
-        <!-- User Profile Mock -->
+        <!-- User Profile -->
         <div class="relative">
           <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Profile" 
-               class="w-9 h-9 rounded-full border-2 border-pink-500 cursor-pointer" id="profilePic">
+               class="w-9 h-9 rounded-full border-2 border-pink-500 cursor-pointer hover:scale-105 transition" id="profilePic">
           
-          <div id="profileDropdown" class="hidden absolute right-0 mt-2 w-60 bg-white shadow-lg rounded-xl p-4 border z-50 text-sm">
+          <div id="profileDropdown" class="hidden absolute right-0 mt-2 w-64 bg-white/30 backdrop-blur-lg shadow-xl rounded-xl p-4 border border-white/40 z-50 text-sm animate-fadeIn">
             <div class="flex items-center gap-3 mb-3">
               <img src="https://randomuser.me/api/portraits/women/65.jpg" class="w-12 h-12 rounded-full border-2 border-pink-500" alt="">
               <div>
                 <div class="font-semibold">Ananya Sharma</div>
-                <div class="text-xs text-gray-500">Premium Member</div>
+                <div class="text-xs text-gray-700">Premium Member</div>
               </div>
             </div>
-            <div class="text-sm space-y-1">
+            <div class="text-sm space-y-1 text-gray-700">
               <p><span class="font-medium">📧 Email:</span> ananya@example.com</p>
               <p><span class="font-medium">📱 Phone:</span> +91 98765 43210</p>
               <p><span class="font-medium">🏠 Address:</span> Kolkata, India</p>
             </div>
-            <button class="mt-3 w-full px-3 py-1.5 rounded-md bg-pink-600 text-white text-sm hover:bg-pink-700">Logout</button>
+            <button class="mt-3 w-full px-3 py-1.5 rounded-lg bg-gradient-to-r from-pink-600 to-pink-700 text-white text-sm hover:opacity-90 shadow">Logout</button>
           </div>
         </div>
       </div>
@@ -62,51 +62,51 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="max-w-7xl mx-auto px-6 py-14 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+  <section class="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
     <div>
-      <h2 class="text-5xl font-serif leading-tight text-slate-900">Luxury Hampers,<br> Curated With Sparkle ✨</h2>
-      <p class="mt-5 text-gray-600 text-lg">Elevate every occasion with handcrafted hampers blending jewelry, lifestyle & love — uniquely designed for your special moments.</p>
+      <h2 class="text-5xl font-serif leading-tight text-slate-900 drop-shadow">Luxury Hampers,<br> Curated With Sparkle ✨</h2>
+      <p class="mt-5 text-gray-700 text-lg">Elevate every occasion with handcrafted hampers blending jewelry, lifestyle & love — uniquely designed for your special moments.</p>
       <div class="mt-7 flex gap-4">
-        <button class="px-6 py-3 rounded-lg bg-pink-600 text-white font-medium shadow hover:bg-pink-700">Shop Bestsellers</button>
-        <button class="px-6 py-3 rounded-lg border border-gray-300 bg-white/60 backdrop-blur hover:bg-gray-50">Build Your Hamper</button>
+        <button class="px-6 py-3 rounded-xl bg-gradient-to-r from-pink-600 to-pink-700 text-white font-medium shadow-lg hover:scale-105 transition">Shop Bestsellers</button>
+        <button class="px-6 py-3 rounded-xl bg-white/30 backdrop-blur-md border border-white/40 hover:bg-white/50 shadow">Build Your Hamper</button>
       </div>
     </div>
     <div class="relative">
-      <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=1200&q=80" alt="hamper" class="rounded-2xl shadow-lg">
-      <div class="absolute -bottom-6 -left-6 bg-white/90 shadow-lg rounded-xl px-5 py-3 text-sm">
-        🎁 Over <span class="font-bold text-pink-600">10,000+ hampers</span> delivered with love
+      <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=1200&q=80" alt="hamper" class="rounded-3xl shadow-xl hover:scale-105 transition">
+      <div class="absolute -bottom-6 -left-6 bg-white/40 backdrop-blur-md shadow-lg rounded-xl px-5 py-3 text-sm border border-white/40">
+        🎁 Over <span class="font-bold text-pink-700">10,000+ hampers</span> delivered with love
       </div>
     </div>
   </section>
 
   <!-- Product Grid -->
-  <main class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+  <main class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
     <!-- Example Product -->
-    <article class="bg-white/90 rounded-xl shadow hover:shadow-lg overflow-hidden transition group">
+    <article class="bg-white/40 backdrop-blur-lg rounded-2xl shadow-lg overflow-hidden transition transform hover:scale-105">
       <div class="h-56 bg-gray-100 overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?w=1000&q=80" alt="Pearl Jhumka Set" class="w-full h-full object-cover group-hover:scale-105 transition">
+        <img src="https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?w=1000&q=80" alt="Pearl Jhumka Set" class="w-full h-full object-cover hover:scale-110 transition">
       </div>
       <div class="p-5">
-        <h3 class="font-medium text-lg">Pearl Jhumka Set</h3>
-        <p class="text-sm text-gray-500 mt-1">Festive Special</p>
+        <h3 class="font-medium text-lg text-slate-900">Pearl Jhumka Set</h3>
+        <p class="text-sm text-gray-700 mt-1">Festive Special</p>
         <div class="mt-3 flex items-center justify-between">
-          <div class="text-lg font-semibold text-pink-600">₹699</div>
-          <button class="px-4 py-1.5 rounded-md bg-gradient-to-r from-pink-600 to-amber-500 text-white text-sm shadow hover:opacity-90">Add</button>
+          <div class="text-lg font-semibold text-pink-700">₹699</div>
+          <button class="px-4 py-1.5 rounded-lg bg-gradient-to-r from-pink-600 to-pink-700 text-white text-sm shadow hover:opacity-90">Add</button>
         </div>
       </div>
     </article>
   </main>
 
   <!-- Footer -->
-  <footer class="mt-16 bg-white/70 border-t backdrop-blur">
-    <div class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+  <footer class="mt-20 bg-white/20 backdrop-blur-lg border-t border-white/40">
+    <div class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-10">
       <div>
         <h5 class="font-semibold">Jeweluxe Hamper</h5>
-        <p class="text-sm text-gray-500 mt-2">Luxury, handmade hampers & accessories — designed to create unforgettable gifting moments.</p>
+        <p class="text-sm text-gray-700 mt-2">Luxury, handmade hampers & accessories — designed to create unforgettable gifting moments.</p>
       </div>
       <div>
         <h5 class="font-semibold">Support</h5>
-        <ul class="mt-2 text-sm text-gray-600 space-y-1">
+        <ul class="mt-2 text-sm text-gray-700 space-y-1">
           <li>Shipping</li>
           <li>Returns</li>
           <li>FAQs</li>
@@ -114,22 +114,22 @@
       </div>
       <div>
         <h5 class="font-semibold">Connect</h5>
-        <div class="mt-2 flex gap-4 text-gray-600 text-sm">
+        <div class="mt-2 flex gap-4 text-gray-700 text-sm">
           <a href="#">Instagram</a> • <a href="#">Pinterest</a> • <a href="#">WhatsApp</a>
         </div>
       </div>
     </div>
-    <div class="text-center text-xs text-gray-400 py-5">© 2025 Jeweluxe Hamper • Crafted with Love</div>
+    <div class="text-center text-xs text-gray-600 py-5">© 2025 Jeweluxe Hamper • Crafted with Love</div>
   </footer>
 
   <!-- Cart Sidebar -->
-  <aside id="cartSidebar" class="fixed top-0 right-0 w-80 h-full bg-white shadow-2xl border-l transform translate-x-full transition-transform duration-300 z-50">
-    <div class="flex justify-between items-center p-5 border-b">
+  <aside id="cartSidebar" class="fixed top-0 right-0 w-80 h-full bg-white/40 backdrop-blur-xl shadow-2xl border-l border-white/40 transform translate-x-full transition-transform duration-300 z-50">
+    <div class="flex justify-between items-center p-5 border-b border-white/40">
       <h3 class="font-semibold text-lg">Your Cart</h3>
-      <button onclick="toggleCart()" class="text-gray-500 hover:text-gray-700">✕</button>
+      <button onclick="toggleCart()" class="text-gray-700 hover:text-pink-700">✕</button>
     </div>
     <div class="p-5 space-y-4">
-      <p class="text-gray-500 text-sm">Your cart is empty</p>
+      <p class="text-gray-700 text-sm">Your cart is empty</p>
     </div>
   </aside>
 
@@ -147,5 +147,16 @@
       profileDropdown.classList.toggle("hidden");
     });
   </script>
+
+  <!-- Animations -->
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fadeIn {
+      animation: fadeIn 0.3s ease-in-out;
+    }
+  </style>
 </body>
 </html>
