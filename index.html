@@ -37,7 +37,7 @@
         </button>
 
         <!-- Login / Sign Up -->
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-3" id="authButtons">
           <a href="login.html" class="px-4 py-1.5 rounded-lg bg-white/30 backdrop-blur-md border border-white/40 text-sm font-medium text-gray-800 hover:bg-white/50 transition shadow">
             Login
           </a>
@@ -135,6 +135,12 @@
     <div id="cartTotal" class="p-5 border-t border-white/40 font-semibold text-pink-700">
       Total: ₹0
     </div>
+    <!-- Checkout Button -->
+    <div class="p-5">
+      <button onclick="proceedToCheckout()" class="w-full px-4 py-2 rounded-lg bg-gradient-to-r from-pink-600 to-pink-700 text-white text-sm font-medium shadow hover:opacity-90">
+        Proceed to Checkout
+      </button>
+    </div>
   </aside>
 
   <!-- Scripts -->
@@ -200,6 +206,27 @@
       // Calculate total sum
       const total = cart.reduce((sum, item) => sum + item.price, 0);
       cartTotal.textContent = "Total: ₹" + total;
+    }
+
+    // Proceed to checkout
+    function proceedToCheckout() {
+      if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+      }
+
+      // Save cart to localStorage
+      localStorage.setItem("cart", JSON.stringify(cart));
+
+      // Check login status
+      const isLoggedIn = localStorage.getItem("isLoggedIn");
+      if (!isLoggedIn) {
+        // Save redirect page
+        localStorage.setItem("redirectAfterLogin", "checkout.html");
+        window.location.href = "login.html";
+      } else {
+        window.location.href = "checkout.html";
+      }
     }
   </script>
 
