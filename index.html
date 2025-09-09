@@ -22,7 +22,7 @@
         </div>
       </a>
 
-      <!-- Search + Cart + User -->
+      <!-- Search + Cart + Auth -->
       <div class="flex items-center gap-5">
         <!-- Search -->
         <div class="hidden md:flex items-center bg-white/30 backdrop-blur-md rounded-full px-3 py-1 gap-2 shadow-inner border border-white/40">
@@ -36,33 +36,21 @@
           <span class="ml-1 inline-block bg-pink-600 text-white text-xs px-2 py-0.5 rounded-full shadow">2</span>
         </button>
 
-        <!-- User Profile -->
-        <div class="relative">
-          <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Profile" 
-               class="w-9 h-9 rounded-full border-2 border-pink-500 cursor-pointer hover:scale-105 transition" id="profilePic">
-          
-          <div id="profileDropdown" class="hidden absolute right-0 mt-2 w-64 bg-white/30 backdrop-blur-lg shadow-xl rounded-xl p-4 border border-white/40 z-50 text-sm animate-fadeIn">
-            <div class="flex items-center gap-3 mb-3">
-              <img src="https://randomuser.me/api/portraits/women/65.jpg" class="w-12 h-12 rounded-full border-2 border-pink-500" alt="">
-              <div>
-                <div class="font-semibold">Ananya Sharma</div>
-                <div class="text-xs text-gray-700">Premium Member</div>
-              </div>
-            </div>
-            <div class="text-sm space-y-1 text-gray-700">
-              <p><span class="font-medium">📧 Email:</span> ananya@example.com</p>
-              <p><span class="font-medium">📱 Phone:</span> +91 98765 43210</p>
-              <p><span class="font-medium">🏠 Address:</span> Kolkata, India</p>
-            </div>
-            <button class="mt-3 w-full px-3 py-1.5 rounded-lg bg-gradient-to-r from-pink-600 to-pink-700 text-white text-sm hover:opacity-90 shadow">Logout</button>
-          </div>
+        <!-- Login / Sign Up -->
+        <div class="flex items-center gap-3">
+          <a href="login.html" class="px-4 py-1.5 rounded-lg bg-white/30 backdrop-blur-md border border-white/40 text-sm font-medium text-gray-800 hover:bg-white/50 transition shadow">
+            Login
+          </a>
+          <a href="signup.html" class="px-4 py-1.5 rounded-lg bg-gradient-to-r from-pink-600 to-pink-700 text-white text-sm font-medium shadow hover:opacity-90">
+            Sign Up
+          </a>
         </div>
       </div>
     </div>
   </header>
 
   <!-- Hero Section -->
-<section class="max-w-6xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+  <section class="max-w-6xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
     <div>
       <h2 class="text-4xl font-serif leading-tight">Handpicked hampers, crafted with love.</h2>
       <p class="mt-4 text-gray-600">Customizable gift hampers with jewelry-inspired accessories — perfect for birthdays, festivals, and little moments that matter.</p>
@@ -151,26 +139,7 @@
     function toggleCart() {
       document.getElementById("cartSidebar").classList.toggle("translate-x-full");
     }
-
-    // Profile dropdown toggle
-    const profilePic = document.getElementById("profilePic");
-    const profileDropdown = document.getElementById("profileDropdown");
-
-    profilePic.addEventListener("click", () => {
-      profileDropdown.classList.toggle("hidden");
-    });
   </script>
 
-  <!-- Animations -->
-  <style>
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .animate-fadeIn {
-      animation: fadeIn 0.3s ease-in-out;
-    }
-  </style>
 </body>
 </html>
-
