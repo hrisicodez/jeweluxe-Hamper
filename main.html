@@ -22,7 +22,8 @@
         </div>
       </a>
 
-     <div class="flex items-center gap-5">
+      <!-- Search + Cart + Auth -->
+      <div class="flex items-center gap-5">
         <!-- Search -->
         <div class="hidden md:flex items-center bg-white/30 backdrop-blur-md rounded-full px-3 py-1 gap-2 shadow-inner border border-white/40">
           <input placeholder="Search gifts..." class="bg-transparent outline-none text-sm w-56 text-gray-700 placeholder-gray-600" />
@@ -34,8 +35,9 @@
           🛒 
           <span id="cartCount" class="ml-1 inline-block bg-pink-600 text-white text-xs px-2 py-0.5 rounded-full shadow">0</span>
         </button>
-       
-        <!-- Account -->
+
+        
+       <!-- Account -->
         <button onclick="toggleAccount()" class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/30 backdrop-blur-md border border-white/40 shadow hover:bg-white/50 transition">
           <img id="headerProfilePic" src="https://via.placeholder.com/32" class="w-8 h-8 rounded-full border border-pink-500" alt="Profile">
           <span id="headerUserName" class="text-sm font-medium text-pink-700">Account</span>
@@ -44,7 +46,7 @@
     </div>
   </header>
 
-  <!-- Hero Section -->
+   <!-- Hero Section -->
   <section class="max-w-6xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
     <div>
       <h2 class="text-4xl font-serif leading-tight">Handpicked hampers, crafted with love.</h2>
@@ -92,7 +94,6 @@
     <div id="productGrid" class="contents"></div>
   </main>
 
-
   <!-- Footer -->
   <footer class="mt-20 bg-white/20 backdrop-blur-lg border-t border-white/40">
     <div class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-10">
@@ -118,26 +119,6 @@
     <div class="text-center text-xs text-gray-600 py-5">© 2025 Jeweluxe Hamper • Crafted with Love</div>
   </footer>
 
-
-   <!-- Cart Sidebar -->
-  <aside id="cartSidebar" class="fixed top-0 right-0 w-80 h-full bg-white/40 backdrop-blur-xl shadow-2xl border-l border-white/40 transform translate-x-full transition-transform duration-300 z-50">
-    <div class="flex justify-between items-center p-5 border-b border-white/40">
-      <h3 class="font-semibold text-lg">Your Cart</h3>
-      <button onclick="toggleCart()" class="text-gray-700 hover:text-pink-700">✕</button>
-    </div>
-    <div id="cartItems" class="p-5 space-y-4 text-sm text-gray-700">
-      <p>Your cart is empty</p>
-    </div>
-    <!-- Total Price -->
-    <div id="cartTotal" class="p-5 border-t border-white/40 font-semibold text-pink-700">
-      Total: ₹0
-    </div>
-    <div class="p-5">
-      <button onclick="proceedToCheckout()" class="w-full px-5 py-2 rounded-lg bg-gradient-to-r from-pink-600 to-pink-700 text-white font-medium shadow hover:opacity-90">
-        Proceed to Checkout
-      </button>
-    </div>
-  </aside>
 
   <!-- Account Sidebar (UNCHANGED as per your request) -->
   <aside id="accountSidebar" class="fixed top-0 right-0 w-80 h-full bg-white/40 backdrop-blur-xl shadow-2xl border-l border-white/40 transform translate-x-full transition-transform duration-300 z-50">
@@ -173,7 +154,7 @@
     </div>
   </aside>
 
- <!-- Cart Sidebar -->
+  <!-- Cart Sidebar -->
   <aside id="cartSidebar" class="fixed top-0 right-0 w-80 h-full bg-white/40 backdrop-blur-xl shadow-2xl border-l border-white/40 transform translate-x-full transition-transform duration-300 z-50">
     <div class="flex justify-between items-center p-5 border-b border-white/40">
       <h3 class="font-semibold text-lg">Your Cart</h3>
@@ -266,10 +247,13 @@
       const isLoggedIn = localStorage.getItem("loggedIn") === "true";
       if (!isLoggedIn) {
         localStorage.setItem("redirectAfterLogin", "checkout.html");
+        window.location.href = "login.html";
+      } else {
         window.location.href = "checkout.html";
+      }
     }
 
-    function toggleAccount() {
+        function toggleAccount() {
       document.getElementById("accountSidebar").classList.toggle("translate-x-full");
     }
 
@@ -335,6 +319,6 @@
       }
     }
   </script>
+
 </body>
 </html>
-
