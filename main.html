@@ -77,17 +77,17 @@
     </div>
   </section>
 
-  <!-- Product Grid -->
+ <!-- Product Grid -->
   <main class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
     <!-- Example Products -->
     <script>
       const products = [
-        { id: 1, name: "Pearl Jhumka Set", price: 699, img: "https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?w=1000&q=80" },
-        { id: 2, name: "Golden Bracelet", price: 899, img: "https://images.unsplash.com/photo-1611599535964-5984b97a5e4c?w=1000&q=80" },
-        { id: 3, name: "Luxury Hamper Box", price: 1599, img: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1000&q=80" },
-        { id: 4, name: "Rose Quartz Earrings", price: 499, img: "https://images.unsplash.com/photo-1599643478714-20a2fa1e35b1?w=1000&q=80" },
-        { id: 5, name: "Gift Basket Special", price: 1299, img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1000&q=80" },
-        { id: 6, name: "Designer Bangle Set", price: 1099, img: "https://images.unsplash.com/photo-1622396481488-47dfd507f7aa?w=1000&q=80" },
+        { id: 1, name: "Earrings", img: "https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?w=1000&q=80", page: "earrings.html" },
+        { id: 2, name: "Bracelet", img: "https://images.unsplash.com/photo-1611599535964-5984b97a5e4c?w=1000&q=80", page: "bracelet.html" },
+        { id: 3, name: "Bow Hair Clip", img: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1000&q=80", page: "bow-hair-clip.html" },
+        { id: 4, name: "Ring", img: "https://images.unsplash.com/photo-1599643478714-20a2fa1e35b1?w=1000&q=80", page: "ring.html" },
+        { id: 5, name: "Pendant", img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1000&q=80", page: "pendant.html" },
+        { id: 6, name: "Polaroid Cards", img: "https://images.unsplash.com/photo-1622396481488-47dfd507f7aa?w=1000&q=80", page: "polaroid.html" },
       ];
     </script>
 
@@ -177,17 +177,12 @@
   <!-- Scripts -->
   <script>
     const productGrid = document.getElementById("productGrid");
-    const cartItems = document.getElementById("cartItems");
-    const cartCount = document.getElementById("cartCount");
-    const cartTotal = document.getElementById("cartTotal");
 
-    // Load saved cart if available
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-    // Render products
+    // Render products as clickable cards with separate pages
     products.forEach(product => {
-      const item = document.createElement("article");
-      item.className = "bg-white/40 backdrop-blur-lg rounded-2xl shadow-lg overflow-hidden transition transform hover:scale-105";
+      const item = document.createElement("a");
+      item.href = product.page; // each card links to its own page
+      item.className = "block bg-white/40 backdrop-blur-lg rounded-2xl shadow-lg overflow-hidden transition transform hover:scale-105";
       item.innerHTML = `
         <div class="h-56 bg-gray-100 overflow-hidden">
           <img src="${product.img}" alt="${product.name}" class="w-full h-full object-cover hover:scale-110 transition">
@@ -195,10 +190,6 @@
         <div class="p-5">
           <h3 class="font-medium text-lg text-slate-900">${product.name}</h3>
           <p class="text-sm text-gray-700 mt-1">Special Collection</p>
-          <div class="mt-3 flex items-center justify-between">
-            <div class="text-lg font-semibold text-pink-700">₹${product.price}</div>
-            <button onclick="addToCart(${product.id})" class="px-4 py-1.5 rounded-lg bg-gradient-to-r from-pink-600 to-pink-700 text-white text-sm shadow hover:opacity-90">Add</button>
-          </div>
         </div>
       `;
       productGrid.appendChild(item);
@@ -322,4 +313,5 @@
 
 </body>
 </html>
+
 
